@@ -1,19 +1,6 @@
-import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 
-const ListCasts = ({onClickMember}) => {
-  const [cast, setCast] = useState([]);
-
-  /* Get casts from json (used to mimic hit API) */
-  async function fetchCast() {
-    const response = await fetch('cast.json');
-    setCast(await response.json());
-  }
-
-  /* Fetch the cast when loaded */
-  useEffect(() => {
-    fetchCast();
-  });
+const ListCasts = ({casts, onClickCast}) => {
 
   return (
     <div style={{
@@ -23,9 +10,9 @@ const ListCasts = ({onClickMember}) => {
       marginBottom: "1rem",
     }}>
       {
-        cast.map((member) => {
+        casts.map((member) => {
           return (
-            <a key={member.id} onClick={ () => onClickMember(member) } data-tooltip={member.name}>
+            <a key={member.id} onClick={ () => onClickCast(member) } data-tooltip={member.name}>
               <img src={`images/${member.slug}_tn.svg`} alt={member.name} />
             </a>
           );
@@ -36,7 +23,8 @@ const ListCasts = ({onClickMember}) => {
 };
 
 ListCasts.propTypes = {
-  onClickMember: PropTypes.func
+  casts: PropTypes.array,
+  onClickCast: PropTypes.func
 }
 
 export default ListCasts;
