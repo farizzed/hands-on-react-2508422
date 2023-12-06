@@ -1,5 +1,6 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import ListCasts from "./components/ListCasts.jsx";
+import MemberModal from "./components/MemberModal.jsx";
 
 function App() {
   const [memberInfo, setMemberInfo] = useState(null);
@@ -11,15 +12,10 @@ function App() {
         <p>Members of an <b>intergalactic alliance</b> paving the way for peace and benevolence among all species. They are known for their enthusiasm for science, for their love of fun, and their dedication to education.</p>
         <ListCasts onClickMember={ (info) => { setMemberInfo(info) }} />
 
-        { memberInfo &&
-          <article style={{display: "flex", gap: "2rem"}}>
-            <img style={{width: "150px"}} src={`images/${memberInfo.slug}.svg`} alt={memberInfo.name}/>
-            <hgroup>
-              <h1>{memberInfo.name}</h1>
-              <p>{memberInfo.bio}</p>
-            </hgroup>
-          </article>
-        }
+        { memberInfo && <MemberModal
+          member={memberInfo}
+          handleClose={() => setMemberInfo(null)}
+        /> }
     </div>
   )
 }
