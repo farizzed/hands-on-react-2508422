@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
-export default () => {
+const ListCasts = ({onClickMember}) => {
   const [cast, setCast] = useState([]);
 
   /* Get casts from json (used to mimic hit API) */
@@ -24,7 +25,7 @@ export default () => {
       {
         cast.map((member) => {
           return (
-            <a key={member.id} data-tooltip={member.name}>
+            <a key={member.id} onClick={ () => onClickMember(member) } data-tooltip={member.name}>
               <img src={`images/${member.slug}_tn.svg`} alt={member.name} />
             </a>
           );
@@ -33,3 +34,9 @@ export default () => {
     </div>
   );
 };
+
+ListCasts.propTypes = {
+  onClickMember: PropTypes.func
+}
+
+export default ListCasts;

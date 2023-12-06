@@ -1,21 +1,25 @@
-import React from "react";
-import Welcome from "./components/Welcome.jsx";
-import Support from "./components/Support.jsx";
+import { React, useState } from "react";
 import ListCasts from "./components/ListCasts.jsx";
 
 function App() {
-  const groupName = 'StarGazers';
+  const [memberInfo, setMemberInfo] = useState(null);
+
   return (
     <div className="container">
-      <article>
         <img src="images/group.svg" alt="StarGazers"/>
-        <hgroup>
-          <Welcome name={groupName} />
-          <p>Members of an <b>intergalactic alliance</b> paving the way for peace and benevolence among all species. They are known for their enthusiasm for science, for their love of fun, and their dedication to education.</p>
-        </hgroup>
-        <ListCasts />
-        <Support />
-      </article>
+        <h1>Meet the StarGazers</h1>
+        <p>Members of an <b>intergalactic alliance</b> paving the way for peace and benevolence among all species. They are known for their enthusiasm for science, for their love of fun, and their dedication to education.</p>
+        <ListCasts onClickMember={ (info) => { setMemberInfo(info) }} />
+
+        { memberInfo &&
+          <article style={{display: "flex", gap: "2rem"}}>
+            <img style={{width: "150px"}} src={`images/${memberInfo.slug}.svg`} alt={memberInfo.name}/>
+            <hgroup>
+              <h1>{memberInfo.name}</h1>
+              <p>{memberInfo.bio}</p>
+            </hgroup>
+          </article>
+        }
     </div>
   )
 }
